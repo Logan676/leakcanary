@@ -24,50 +24,52 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.util.AttributeSet;
 import android.view.View;
+
 import com.squareup.leakcanary.R;
 
 public final class MoreDetailsView extends View {
 
-  private final Paint iconPaint;
+    private final Paint iconPaint;
 
-  public MoreDetailsView(Context context, AttributeSet attrs) {
-    super(context, attrs);
-    Resources resources = getResources();
-    iconPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
-    float strokeSize = resources.getDimensionPixelSize(R.dimen.leak_canary_more_stroke_width);
-    iconPaint.setStrokeWidth(strokeSize);
+    public MoreDetailsView(Context context, AttributeSet attrs) {
+        super(context, attrs);
+        Resources resources = getResources();
+        iconPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+        float strokeSize = resources.getDimensionPixelSize(R.dimen.leak_canary_more_stroke_width);
+        iconPaint.setStrokeWidth(strokeSize);
 
-    // This lint check doesn't work for libraries which have a common prefix.
-    @SuppressLint("CustomViewStyleable") //
-        TypedArray a =
-        context.obtainStyledAttributes(attrs, R.styleable.leak_canary_MoreDetailsView);
-    int plusColor =
-        a.getColor(R.styleable.leak_canary_MoreDetailsView_leak_canary_plus_color, Color.BLACK);
-    a.recycle();
+        // This lint check doesn't work for libraries which have a common prefix.
+        @SuppressLint("CustomViewStyleable") //
+                TypedArray a =
+                context.obtainStyledAttributes(attrs, R.styleable.leak_canary_MoreDetailsView);
+        int plusColor =
+                a.getColor(R.styleable.leak_canary_MoreDetailsView_leak_canary_plus_color, Color.BLACK);
+        a.recycle();
 
-    iconPaint.setColor(plusColor);
-  }
-
-  private boolean opened;
-
-  @Override protected void onDraw(Canvas canvas) {
-    int width = getWidth();
-    int height = getHeight();
-    int halfHeight = height / 2;
-    int halfWidth = width / 2;
-
-    if (opened) {
-      canvas.drawLine(0, halfHeight, width, halfHeight, iconPaint);
-    } else {
-      canvas.drawLine(0, halfHeight, width, halfHeight, iconPaint);
-      canvas.drawLine(halfWidth, 0, halfWidth, height, iconPaint);
+        iconPaint.setColor(plusColor);
     }
-  }
 
-  public void setOpened(boolean opened) {
-    if (opened != this.opened) {
-      this.opened = opened;
-      invalidate();
+    private boolean opened;
+
+    @Override
+    protected void onDraw(Canvas canvas) {
+        int width = getWidth();
+        int height = getHeight();
+        int halfHeight = height / 2;
+        int halfWidth = width / 2;
+
+        if (opened) {
+            canvas.drawLine(0, halfHeight, width, halfHeight, iconPaint);
+        } else {
+            canvas.drawLine(0, halfHeight, width, halfHeight, iconPaint);
+            canvas.drawLine(halfWidth, 0, halfWidth, height, iconPaint);
+        }
     }
-  }
+
+    public void setOpened(boolean opened) {
+        if (opened != this.opened) {
+            this.opened = opened;
+            invalidate();
+        }
+    }
 }

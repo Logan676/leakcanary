@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~ Copyright (C) 2015 Square, Inc.
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
@@ -14,8 +13,7 @@
   ~ See the License for the specific language governing permissions and
   ~ limitations under the License.
   -->
-<TextView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/leak_canary_row_text"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -23,5 +21,4 @@
     android:textSize="18sp"
     android:background="@color/leak_canary_class_name"
     android:padding="16dp"
-    android:textColor="@color/leak_canary_background_color"
-    />
+    android:textColor="@color/leak_canary_background_color" />

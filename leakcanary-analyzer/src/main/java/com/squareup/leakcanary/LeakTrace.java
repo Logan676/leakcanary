@@ -16,6 +16,7 @@
 package com.squareup.leakcanary;
 
 import android.support.annotation.NonNull;
+
 import java.io.Serializable;
 import java.util.List;
 
@@ -25,46 +26,50 @@ import java.util.List;
  */
 public final class LeakTrace implements Serializable {
 
-  @NonNull public final List<LeakTraceElement> elements;
-  @NonNull public final List<Reachability> expectedReachability;
+    @NonNull
+    public final List<LeakTraceElement> elements;
+    @NonNull
+    public final List<Reachability> expectedReachability;
 
-  LeakTrace(List<LeakTraceElement> elements, List<Reachability> expectedReachability) {
-    this.elements = elements;
-    this.expectedReachability = expectedReachability;
-  }
+    LeakTrace(List<LeakTraceElement> elements, List<Reachability> expectedReachability) {
+        this.elements = elements;
+        this.expectedReachability = expectedReachability;
+    }
 
-  @Override public String toString() {
-    StringBuilder sb = new StringBuilder();
-    for (int i = 0; i < elements.size(); i++) {
-      LeakTraceElement element = elements.get(i);
-      sb.append("* ");
-      if (i != 0) {
-        sb.append("↳ ");
-      }
-      boolean maybeLeakCause = false;
-      Reachability currentReachability = expectedReachability.get(i);
-      if (currentReachability == Reachability.UNKNOWN) {
-        maybeLeakCause = true;
-      } else if (currentReachability == Reachability.REACHABLE) {
-        if (i < elements.size() - 1) {
-          Reachability nextReachability = expectedReachability.get(i + 1);
-          if (nextReachability != Reachability.REACHABLE) {
-            maybeLeakCause = true;
-          }
-        } else {
-          maybeLeakCause = true;
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < elements.size(); i++) {
+            LeakTraceElement element = elements.get(i);
+            sb.append("* ");
+            if (i != 0) {
+                sb.append("↳ ");
+            }
+            boolean maybeLeakCause = false;
+            Reachability currentReachability = expectedReachability.get(i);
+            if (currentReachability == Reachability.UNKNOWN) {
+                maybeLeakCause = true;
+            } else if (currentReachability == Reachability.REACHABLE) {
+                if (i < elements.size() - 1) {
+                    Reachability nextReachability = expectedReachability.get(i + 1);
+                    if (nextReachability != Reachability.REACHABLE) {
+                        maybeLeakCause = true;
+                    }
+                } else {
+                    maybeLeakCause = true;
+                }
+            }
+            sb.append(element.toString(maybeLeakCause)).append("\n");
         }
-      }
-      sb.append(element.toString(maybeLeakCause)).append("\n");
+        return sb.toString();
     }
-    return sb.toString();
-  }
 
-  public @NonNull String toDetailedString() {
-    String string = "";
-    for (LeakTraceElement element : elements) {
-      string += element.toDetailedString();
+    public @NonNull
+    String toDetailedString() {
+        String string = "";
+        for (LeakTraceElement element : elements) {
+            string += element.toDetailedString();
+        }
+        return string;
     }
-    return string;
-  }
 }

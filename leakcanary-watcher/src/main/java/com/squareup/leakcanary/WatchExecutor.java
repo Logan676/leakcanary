@@ -5,10 +5,11 @@ package com.squareup.leakcanary;
  * later if needed.
  */
 public interface WatchExecutor {
-  WatchExecutor NONE = new WatchExecutor() {
-    @Override public void execute(Retryable retryable) {
-    }
-  };
+    WatchExecutor NONE = new WatchExecutor() {
+        @Override
+        public void execute(Retryable retryable) {
+        }
+    };
 
-  void execute(Retryable retryable);
+    void execute(Retryable retryable);
 }

@@ -16,6 +16,7 @@
 package com.squareup.leakcanary;
 
 import android.support.annotation.NonNull;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -24,38 +25,46 @@ import static java.util.Collections.unmodifiableList;
 
 public final class InstrumentationLeakResults {
 
-  @NonNull public static final InstrumentationLeakResults NONE =
-      new InstrumentationLeakResults(Collections.<Result>emptyList(),
-          Collections.<Result>emptyList(), Collections.<Result>emptyList());
+    @NonNull
+    public static final InstrumentationLeakResults NONE =
+            new InstrumentationLeakResults(Collections.<Result>emptyList(),
+                    Collections.<Result>emptyList(), Collections.<Result>emptyList());
 
-  /** Proper leaks found during instrumentation tests. */
-  @NonNull public final List<Result> detectedLeaks;
+    /**
+     * Proper leaks found during instrumentation tests.
+     */
+    @NonNull
+    public final List<Result> detectedLeaks;
 
-  /**
-   * Excluded leaks found during instrumentation tests, based on {@link
-   * RefWatcherBuilder#excludedRefs}
-   */
-  @NonNull public final List<Result> excludedLeaks;
+    /**
+     * Excluded leaks found during instrumentation tests, based on {@link
+     * RefWatcherBuilder#excludedRefs}
+     */
+    @NonNull
+    public final List<Result> excludedLeaks;
 
-  /**
-   * Leak analysis failures that happened when we tried to detect leaks.
-   */
-  @NonNull public final List<Result> failures;
+    /**
+     * Leak analysis failures that happened when we tried to detect leaks.
+     */
+    @NonNull
+    public final List<Result> failures;
 
-  public InstrumentationLeakResults(@NonNull List<Result> detectedLeaks,
-      @NonNull List<Result> excludedLeaks, @NonNull List<Result> failures) {
-    this.detectedLeaks = unmodifiableList(new ArrayList<>(detectedLeaks));
-    this.excludedLeaks = unmodifiableList(new ArrayList<>(excludedLeaks));
-    this.failures = unmodifiableList(new ArrayList<>(failures));
-  }
-
-  public static final class Result {
-    @NonNull public final HeapDump heapDump;
-    @NonNull public final AnalysisResult analysisResult;
-
-    public Result(@NonNull HeapDump heapDump, @NonNull AnalysisResult analysisResult) {
-      this.heapDump = heapDump;
-      this.analysisResult = analysisResult;
+    public InstrumentationLeakResults(@NonNull List<Result> detectedLeaks,
+                                      @NonNull List<Result> excludedLeaks, @NonNull List<Result> failures) {
+        this.detectedLeaks = unmodifiableList(new ArrayList<>(detectedLeaks));
+        this.excludedLeaks = unmodifiableList(new ArrayList<>(excludedLeaks));
+        this.failures = unmodifiableList(new ArrayList<>(failures));
     }
-  }
+
+    public static final class Result {
+        @NonNull
+        public final HeapDump heapDump;
+        @NonNull
+        public final AnalysisResult analysisResult;
+
+        public Result(@NonNull HeapDump heapDump, @NonNull AnalysisResult analysisResult) {
+            this.heapDump = heapDump;
+            this.analysisResult = analysisResult;
+        }
+    }
 }

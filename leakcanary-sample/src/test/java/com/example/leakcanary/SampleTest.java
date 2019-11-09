@@ -10,11 +10,12 @@ import org.robolectric.annotation.Config;
 @RunWith(RobolectricTestRunner.class)
 @Config(application = TestExampleApplication.class)
 public class SampleTest {
-  @Test public void testTheThing() throws Exception {
-    ActivityController<MainActivity> controller =
-        Robolectric.buildActivity(MainActivity.class).create().start().resume().visible();
-    controller.get().findViewById(R.id.async_work).performClick();
-    controller.stop();
-    controller.destroy();
-  }
+    @Test
+    public void testTheThing() throws Exception {
+        ActivityController<MainActivity> controller =
+                Robolectric.buildActivity(MainActivity.class).create().start().resume().visible();
+        controller.get().findViewById(R.id.async_work).performClick();
+        controller.stop();
+        controller.destroy();
+    }
 }

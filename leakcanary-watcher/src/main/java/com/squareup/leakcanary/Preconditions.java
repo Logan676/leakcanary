@@ -17,19 +17,19 @@ package com.squareup.leakcanary;
 
 final class Preconditions {
 
-  /**
-   * Returns instance unless it's null.
-   *
-   * @throws NullPointerException if instance is null
-   */
-  static <T> T checkNotNull(T instance, String name) {
-    if (instance == null) {
-      throw new NullPointerException(name + " must not be null");
+    /**
+     * Returns instance unless it's null.
+     *
+     * @throws NullPointerException if instance is null
+     */
+    static <T> T checkNotNull(T instance, String name) {
+        if (instance == null) {
+            throw new NullPointerException(name + " must not be null");
+        }
+        return instance;
     }
-    return instance;
-  }
 
-  private Preconditions() {
-    throw new AssertionError();
-  }
+    private Preconditions() {
+        throw new AssertionError();
+    }
 }

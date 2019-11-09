@@ -21,45 +21,45 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @RunWith(JUnit4.class)
 public class HeapAnalyzerTest {
-  private static final List<RootObj> DUP_ROOTS =
-          asList(new RootObj(SYSTEM_CLASS, 6L),
-                  new RootObj(SYSTEM_CLASS, 5L),
-                  new RootObj(SYSTEM_CLASS, 3L),
-                  new RootObj(SYSTEM_CLASS, 5L),
-                  new RootObj(NATIVE_STATIC, 3L));
+    private static final List<RootObj> DUP_ROOTS =
+            asList(new RootObj(SYSTEM_CLASS, 6L),
+                    new RootObj(SYSTEM_CLASS, 5L),
+                    new RootObj(SYSTEM_CLASS, 3L),
+                    new RootObj(SYSTEM_CLASS, 5L),
+                    new RootObj(NATIVE_STATIC, 3L));
 
-  private HeapAnalyzer heapAnalyzer;
+    private HeapAnalyzer heapAnalyzer;
 
-  @Before
-  public void setUp() {
-    heapAnalyzer = new HeapAnalyzer(NO_EXCLUDED_REFS, AnalyzerProgressListener.NONE,
-        Collections.<Class<? extends Reachability.Inspector>>emptyList());
-  }
-
-  @Test
-  public void ensureUniqueRoots() {
-    Snapshot snapshot = createSnapshot(DUP_ROOTS);
-
-    heapAnalyzer.deduplicateGcRoots(snapshot);
-
-    Collection<RootObj> uniqueRoots = snapshot.getGCRoots();
-    assertThat(uniqueRoots).hasSize(4);
-
-    List<Long> rootIds = new ArrayList<>();
-    for (RootObj root : uniqueRoots) {
-      rootIds.add(root.getId());
+    @Before
+    public void setUp() {
+        heapAnalyzer = new HeapAnalyzer(NO_EXCLUDED_REFS, AnalyzerProgressListener.NONE,
+                Collections.<Class<? extends Reachability.Inspector>>emptyList());
     }
-    Collections.sort(rootIds);
 
-    // 3 appears twice because even though two RootObjs have the same id, they're different types.
-    assertThat(rootIds).containsExactly(3L, 3L, 5L, 6L);
-  }
+    @Test
+    public void ensureUniqueRoots() {
+        Snapshot snapshot = createSnapshot(DUP_ROOTS);
 
-  private Snapshot createSnapshot(List<RootObj> gcRoots) {
-    Snapshot snapshot = new Snapshot(null);
-    for (RootObj root : gcRoots) {
-      snapshot.addRoot(root);
+        heapAnalyzer.deduplicateGcRoots(snapshot);
+
+        Collection<RootObj> uniqueRoots = snapshot.getGCRoots();
+        assertThat(uniqueRoots).hasSize(4);
+
+        List<Long> rootIds = new ArrayList<>();
+        for (RootObj root : uniqueRoots) {
+            rootIds.add(root.getId());
+        }
+        Collections.sort(rootIds);
+
+        // 3 appears twice because even though two RootObjs have the same id, they're different types.
+        assertThat(rootIds).containsExactly(3L, 3L, 5L, 6L);
     }
-    return snapshot;
-  }
+
+    private Snapshot createSnapshot(List<RootObj> gcRoots) {
+        Snapshot snapshot = new Snapshot(null);
+        for (RootObj root : gcRoots) {
+            snapshot.addRoot(root);
+        }
+        return snapshot;
+    }
 }

@@ -2,6 +2,7 @@ package com.squareup.leakcanary;
 
 import java.util.Arrays;
 import java.util.Collection;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
@@ -18,24 +19,26 @@ import static org.junit.Assert.assertEquals;
 @RunWith(Parameterized.class) //
 public class RetainedSizeTest {
 
-  @Parameterized.Parameters public static Collection<Object[]> data() {
-    return Arrays.asList(new Object[][] {
-        { ASYNC_TASK_PRE_M, 207_407 }, //
-        { ASYNC_TASK_M, 1_870 }, //
-        { ASYNC_TASK_O, 753 }, //
-    });
-  }
+    @Parameterized.Parameters
+    public static Collection<Object[]> data() {
+        return Arrays.asList(new Object[][]{
+                {ASYNC_TASK_PRE_M, 207_407}, //
+                {ASYNC_TASK_M, 1_870}, //
+                {ASYNC_TASK_O, 753}, //
+        });
+    }
 
-  private final TestUtil.HeapDumpFile heapDumpFile;
-  private final long expectedRetainedHeapSize;
+    private final TestUtil.HeapDumpFile heapDumpFile;
+    private final long expectedRetainedHeapSize;
 
-  public RetainedSizeTest(TestUtil.HeapDumpFile heapDumpFile, long expectedRetainedHeapSize) {
-    this.heapDumpFile = heapDumpFile;
-    this.expectedRetainedHeapSize = expectedRetainedHeapSize;
-  }
+    public RetainedSizeTest(TestUtil.HeapDumpFile heapDumpFile, long expectedRetainedHeapSize) {
+        this.heapDumpFile = heapDumpFile;
+        this.expectedRetainedHeapSize = expectedRetainedHeapSize;
+    }
 
-  @Test public void leakFound() {
-    AnalysisResult result = analyze(heapDumpFile);
-    assertEquals(expectedRetainedHeapSize, result.retainedHeapSize);
-  }
+    @Test
+    public void leakFound() {
+        AnalysisResult result = analyze(heapDumpFile);
+        assertEquals(expectedRetainedHeapSize, result.retainedHeapSize);
+    }
 }

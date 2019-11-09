@@ -9,19 +9,21 @@ import android.support.annotation.NonNull;
  */
 public final class LeakCanary {
 
-  public static @NonNull RefWatcher install(@NonNull Application application) {
-    return RefWatcher.DISABLED;
-  }
+    public static @NonNull
+    RefWatcher install(@NonNull Application application) {
+        return RefWatcher.DISABLED;
+    }
 
-  public static @NonNull RefWatcher installedRefWatcher() {
-    return RefWatcher.DISABLED;
-  }
+    public static @NonNull
+    RefWatcher installedRefWatcher() {
+        return RefWatcher.DISABLED;
+    }
 
-  public static boolean isInAnalyzerProcess(@NonNull Context context) {
-    return false;
-  }
+    public static boolean isInAnalyzerProcess(@NonNull Context context) {
+        return false;
+    }
 
-  private LeakCanary() {
-    throw new AssertionError();
-  }
+    private LeakCanary() {
+        throw new AssertionError();
+    }
 }

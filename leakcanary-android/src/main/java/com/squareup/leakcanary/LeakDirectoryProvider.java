@@ -17,6 +17,7 @@ package com.squareup.leakcanary;
 
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+
 import java.io.File;
 import java.io.FilenameFilter;
 import java.util.List;
@@ -29,16 +30,18 @@ import java.util.List;
  */
 public interface LeakDirectoryProvider {
 
-  @NonNull List<File> listFiles(@NonNull FilenameFilter filter);
+    @NonNull
+    List<File> listFiles(@NonNull FilenameFilter filter);
 
-  /**
-   * @return {@link HeapDumper#RETRY_LATER} if a new heap dump file could not be created.
-   */
-  @Nullable File newHeapDumpFile();
+    /**
+     * @return {@link HeapDumper#RETRY_LATER} if a new heap dump file could not be created.
+     */
+    @Nullable
+    File newHeapDumpFile();
 
-  /**
-   * Removes all heap dumps and analysis results, except for heap dumps that haven't been
-   * analyzed yet.
-   */
-  void clearLeakDirectory();
+    /**
+     * Removes all heap dumps and analysis results, except for heap dumps that haven't been
+     * analyzed yet.
+     */
+    void clearLeakDirectory();
 }

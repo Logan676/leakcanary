@@ -15,25 +15,33 @@
  */
 package com.squareup.leakcanary;
 
-/** Result returned by {@link Inspector#expectedReachability(LeakTraceElement)}. */
+/**
+ * Result returned by {@link Inspector#expectedReachability(LeakTraceElement)}.
+ */
 public enum Reachability {
-  /** The instance was needed and therefore expected to be reachable. */
-  REACHABLE,
+    /**
+     * The instance was needed and therefore expected to be reachable.
+     */
+    REACHABLE,
 
-  /** The instance was no longer needed and therefore expected to be unreachable. */
-  UNREACHABLE,
+    /**
+     * The instance was no longer needed and therefore expected to be unreachable.
+     */
+    UNREACHABLE,
 
-  /** No decision can be made about the provided instance. */
-  UNKNOWN;
+    /**
+     * No decision can be made about the provided instance.
+     */
+    UNKNOWN;
 
-  /**
-   * Evaluates whether a {@link LeakTraceElement} should be reachable or not.
-   *
-   * Implementations should have a public zero argument constructor as instances will be created
-   * via reflection in the LeakCanary analysis process.
-   */
-  public interface Inspector {
+    /**
+     * Evaluates whether a {@link LeakTraceElement} should be reachable or not.
+     * <p>
+     * Implementations should have a public zero argument constructor as instances will be created
+     * via reflection in the LeakCanary analysis process.
+     */
+    public interface Inspector {
 
-    Reachability expectedReachability(LeakTraceElement element);
-  }
+        Reachability expectedReachability(LeakTraceElement element);
+    }
 }

@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~ Copyright (C) 2015 Square, Inc.
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
@@ -18,29 +17,28 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/leak_canary_background_color"
-    >
-  <ListView
-      android:id="@+id/leak_canary_display_leak_list"
-      android:layout_width="match_parent"
-      android:layout_height="0dp"
-      android:layout_weight="1"
-      android:dividerHeight="0dp"
-      android:divider="@null"
-      />
-  <TextView
-      android:id="@+id/leak_canary_display_leak_failure"
-      android:layout_width="match_parent"
-      android:layout_height="0dp"
-      android:layout_weight="1"
-      android:textSize="12sp"
-      android:visibility="gone"
-      />
-  <Button
-      android:id="@+id/leak_canary_action"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:visibility="gone"
-      />
+    android:background="@color/leak_canary_background_color">
+
+    <ListView
+        android:id="@+id/leak_canary_display_leak_list"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:dividerHeight="0dp"
+        android:divider="@null" />
+
+    <TextView
+        android:id="@+id/leak_canary_display_leak_failure"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:textSize="12sp"
+        android:visibility="gone" />
+
+    <Button
+        android:id="@+id/leak_canary_action"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone" />
 
 </LinearLayout>
